@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using weather_app.Domain;
 using weather_app.Models;
@@ -20,7 +19,7 @@ public class WeatherApi
     public async Task<WeatherContent> GetWeather(double lat, double lon)
     {
         var query =
-            $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=a7dc3bd6bd6a013c1c6506111367ad4e";
+            $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=a7dc3bd6bd6a013c1c6506111367ad4e&units=metric";
         var response = await GetWeatherResponse(query);
 
         var weatherContent = response.ToDomainWeatherContent();

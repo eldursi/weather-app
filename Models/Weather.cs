@@ -7,6 +7,15 @@ public class WeatherResponse
     [JsonProperty("weather")] public List<WeatherSummary> Summary { get; set; }
 
     [JsonProperty("main")] public WeatherDetails Details { get; set; }
+    
+    [JsonProperty("sys")] public Timings Timings { get; set; }
+}
+
+public class Timings
+{
+    [JsonProperty("sunrise")] public int Sunrise { get; set; }
+
+    [JsonProperty("sunset")] public int Sunset { get; set; }
 }
 
 public class WeatherDetails

@@ -10,9 +10,12 @@ internal static class WeatherContentExtension
         return new(
             response.Summary.FirstOrDefault()?.Main ?? "Clear",
             response.Summary.FirstOrDefault()?.Description ?? "Clear Sky",
+            response.Summary.FirstOrDefault()?.Icon ?? String.Empty,
             response.Details.Temp.ToString(),
             response.Details.MinTemp.ToString(),
-            response.Details.MaxTemp.ToString()
+            response.Details.MaxTemp.ToString(),
+            response.Timings.Sunrise,
+            response.Timings.Sunset
         );
     }
 }
