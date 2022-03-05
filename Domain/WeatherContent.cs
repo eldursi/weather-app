@@ -3,6 +3,7 @@ namespace weather_app.Domain;
 public class WeatherContent
 {
     public WeatherContent(
+        string locationName,
         string summary, 
         string description, 
         string icon, 
@@ -12,6 +13,7 @@ public class WeatherContent
         long sunrise, 
         long sunset)
     {
+        LocationName = locationName;
         Summary = summary;
         Description = description;
         Icon = icon;
@@ -21,7 +23,8 @@ public class WeatherContent
         Sunrise = $"{DateTimeOffset.FromUnixTimeSeconds(sunrise).DateTime.ToShortTimeString()}";
         Sunset = $"{DateTimeOffset.FromUnixTimeSeconds(sunset).DateTime.ToShortTimeString()}";
     }
-
+    
+    public string LocationName { get; }
     public string Sunrise { get; }
     public string Sunset { get; }
     public string Icon { get; }

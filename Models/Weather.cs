@@ -4,6 +4,8 @@ namespace weather_app.Models;
 
 public class WeatherResponse
 {
+    [JsonProperty("name")] public string LocationName { get; set; }
+    
     [JsonProperty("weather")] public List<WeatherSummary> Summary { get; set; }
 
     [JsonProperty("main")] public WeatherDetails Details { get; set; }

@@ -8,6 +8,7 @@ internal static class WeatherContentExtension
     public static WeatherContent ToDomainWeatherContent(this WeatherResponse response)
     {
         return new(
+            response.LocationName,
             response.Summary.FirstOrDefault()?.Main ?? "Clear",
             response.Summary.FirstOrDefault()?.Description ?? "Clear Sky",
             response.Summary.FirstOrDefault()?.Icon ?? String.Empty,
