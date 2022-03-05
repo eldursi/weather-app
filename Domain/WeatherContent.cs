@@ -7,9 +7,9 @@ public class WeatherContent
         string summary, 
         string description, 
         string icon, 
-        string temperature, 
-        string minimumTemperature,
-        string maximumTemperature, 
+        double temperature, 
+        double minimumTemperature,
+        double maximumTemperature, 
         long sunrise, 
         long sunset)
     {
@@ -17,9 +17,9 @@ public class WeatherContent
         Summary = summary;
         Description = description;
         Icon = icon;
-        Temperature = temperature;
-        MinimumTemperature = minimumTemperature;
-        MaximumTemperature = maximumTemperature;
+        Temperature = Math.Round(temperature).ToString();
+        MinimumTemperature = Math.Round(minimumTemperature).ToString();
+        MaximumTemperature =  Math.Round(maximumTemperature).ToString();
         Sunrise = $"{DateTimeOffset.FromUnixTimeSeconds(sunrise).DateTime.ToShortTimeString()}";
         Sunset = $"{DateTimeOffset.FromUnixTimeSeconds(sunset).DateTime.ToShortTimeString()}";
     }

@@ -1,0 +1,37 @@
+.container {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('https://cdn.wallpapersafari.com/27/84/rTc4Xm.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Raleway', sans-serif;
+}
+
+.weather {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.weather-details {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.weather-header {
+    margin: 1rem;
+    font-size: 3rem;
+}
+
+.weather-sub-header {
+    font-size: 1.5rem;
+}
