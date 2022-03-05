@@ -2,7 +2,8 @@ namespace weather_app.Domain;
 
 public class WeatherContent
 {
-    public WeatherContent(string summary, string description, string temperature, string minimumTemperature, string maximumTemperature)
+    public WeatherContent(string summary, string description, string temperature, string minimumTemperature,
+        string maximumTemperature)
     {
         Summary = summary;
         Description = description;

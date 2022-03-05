@@ -24,4 +24,3 @@ public class WeatherForecastController : ControllerBase
         return Ok(response);
     }
 }
-
