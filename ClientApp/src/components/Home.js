@@ -19,34 +19,38 @@ const IsEmpty = (obj) => {
 
 const Home = () => {
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    const [loading, setLoading] = useState(true);
     const [weather, setWeather] = useState({});
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
-
-    if(IsEmpty(weather))
-    {
-        navigator.geolocation.getCurrentPosition(
-            async (position) => await callback(position.coords.latitude, position.coords.longitude),
-            async () => await callback(51.509865, -0.118092),
-        );
-    }
 
     const callback = async (lat, lon) => {
         const response = await getWeather(lat, lon)
         if(!IsEmpty(response))
         {
             setWeather(response)
+            setLoading(false)
         }
     }
     
-    const setDateTime = () => {
-        setCurrentDateTime(new Date());
-    }
     useEffect(() => {
-        const interval = setInterval(setDateTime, 1000);
+        if(IsEmpty(weather))
+        {
+            navigator.geolocation.getCurrentPosition(
+                async (position) => await callback(position.coords.latitude, position.coords.longitude),
+                async () => await callback(51.509865, -0.118092),
+            );
+        }
+        const interval = setInterval(() => setCurrentDateTime(new Date()), 1000);
         return () => {
             clearInterval(interval);
         };
-    }, []);
+    }, [weather]);
+    
+    if(loading)
+    {
+        return <h1>Loading ... </h1>
+    }
     
     return (
         <div className={"weather"}>
