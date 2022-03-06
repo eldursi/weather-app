@@ -1,0 +1,26 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using weather_app.Api;
+using weather_app.Models;
+
+namespace weather_app.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class WeatherController : ControllerBase
+{
+    private readonly ILogger<WeatherController> _logger;
+    private readonly WeatherApi _api;
+
+    public WeatherController(ILogger<WeatherController> logger, WeatherApi api)
+    {
+        _logger = logger;
+        _api = api;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Get([FromQuery] GeoPoint location)
+    {
+        var response = await _api.GetWeather(location.Latitude, location.Longitude);
+        return Ok(response);
+    }
+}
