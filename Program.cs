@@ -1,4 +1,5 @@
 using weather_app.Api;
+using weather_app.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,9 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<WeatherApi>();
+builder.Services.AddSingleton<WeatherAppConfiguration>();
 builder.Services.AddHttpClient<WeatherApi>();
-var app = builder.Build();
+builder.Services.Configure<WeatherAppConfiguration>(
+    builder.Configuration.GetSection("WeatherApp"));
 
+var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -17,7 +21,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
 
 app.MapControllerRoute(
     "default",

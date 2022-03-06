@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './Home.css';
 
 const getWeather = async(lat, lon) => {
-    const response = await fetch(`weatherforecast?Latitude=${lat}&Longitude=${lon}`);
+    const response = await fetch(`weather?Latitude=${lat}&Longitude=${lon}`);
     if (response.ok) {
         return await response.json();
     } else {
@@ -21,14 +21,15 @@ const Home = () => {
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const [weather, setWeather] = useState({});
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
     if(IsEmpty(weather))
     {
         navigator.geolocation.getCurrentPosition(
             async (position) => await callback(position.coords.latitude, position.coords.longitude),
             async () => await callback(51.509865, -0.118092),
-            );
+        );
     }
-    
+
     const callback = async (lat, lon) => {
         const response = await getWeather(lat, lon)
         if(!IsEmpty(response))
@@ -36,10 +37,16 @@ const Home = () => {
             setWeather(response)
         }
     }
-
+    
+    const setDateTime = () => {
+        setCurrentDateTime(new Date());
+    }
     useEffect(() => {
-        setInterval(() => setCurrentDateTime(new Date()), 1000);
-    },[])
+        const interval = setInterval(setDateTime, 1000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
     
     return (
         <div className={"weather"}>

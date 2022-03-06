@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using weather_app.Domain;
 using weather_app.Models;
@@ -7,23 +8,23 @@ namespace weather_app.Api;
 
 public class WeatherApi
 {
-    private HttpClient httpClient;
-    private readonly ILogger<WeatherApi> logger;
+    private readonly HttpClient _httpClient;
+    private readonly ILogger<WeatherApi> _logger;
+    private readonly WeatherAppConfiguration _appConfiguration;
 
-    public WeatherApi(HttpClient httpClient, ILogger<WeatherApi> logger)
+    public WeatherApi(HttpClient httpClient, ILogger<WeatherApi> logger, IOptions<WeatherAppConfiguration> appConfiguration)
     {
-        this.httpClient = httpClient;
-        this.logger = logger;
+        (_httpClient, _logger, _appConfiguration) = (httpClient, logger, appConfiguration.Value);
     }
 
     public async Task<WeatherContent> GetWeather(double lat, double lon)
     {
-        // todo: Move appid value
         var query =
-            $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=a7dc3bd6bd6a013c1c6506111367ad4e&units=metric";
-        var response = await GetWeatherResponse(query);
+            $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={_appConfiguration.AppId}&units=metric";
 
+        var response = await GetWeatherResponse(query);
         var weatherContent = response.ToDomainWeatherContent();
+        
         return weatherContent;
     }
 
@@ -31,7 +32,7 @@ public class WeatherApi
     {
         try
         {
-            var response = await httpClient.GetAsync(query);
+            var response = await _httpClient.GetAsync(query);
 
             if (response == null) throw new HttpRequestException();
 
@@ -44,7 +45,7 @@ public class WeatherApi
         }
         catch (Exception exception)
         {
-            logger.LogError($"Exception thrown in weather api - Message is: {exception.Message}");
+            _logger.LogError($"Exception thrown in weather api - Message is: {exception.Message}");
             throw;
         }
     }

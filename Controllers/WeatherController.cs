@@ -6,12 +6,12 @@ namespace weather_app.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class WeatherController : ControllerBase
 {
-    private readonly ILogger<WeatherForecastController> _logger;
+    private readonly ILogger<WeatherController> _logger;
     private readonly WeatherApi _api;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, WeatherApi api)
+    public WeatherController(ILogger<WeatherController> logger, WeatherApi api)
     {
         _logger = logger;
         _api = api;
