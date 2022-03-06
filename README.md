@@ -1,11 +1,11 @@
 
-# Weather App
+# Weather App ☀
 
 A weather application that uses the openweathermap api (https://openweathermap.org/api) to display the weather in your current location.
 
 
 
-## Environment Variables
+## Environment Variables 🔐
 
 To run this project, you will need to add the following environment variables to your launchsettings.json file
 
@@ -18,7 +18,7 @@ https://openweathermap.org/price
 
 
 
-## Run Locally
+## Run Locally 👩‍💻
 
 Clone the project
 
@@ -56,7 +56,17 @@ Start the server
 ```
 
 
-## Feedback
 
-If you have any feedback, please reach out to me at hiba.eldursi.dev@gmail.com
+## Roadmap 🛣
 
+- Update the background depending on the weather and time of day.
+
+- Add search functionality to be able to search for different locations.
+
+- Add more details about the weather.
+
+
+
+## Feedback 💬
+
+If you have any feedback, please reach out to me at hiba.eldursi.dev@gmail.com 
