@@ -58,5 +58,5 @@ Start the server
 
 ## Feedback
 
-If you have any feedback, please reach out to us at hiba.eldursi.dev@gmail.com
+If you have any feedback, please reach out to me at hiba.eldursi.dev@gmail.com
 
