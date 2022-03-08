@@ -20,13 +20,13 @@ public class WeatherContent
         Temperature = Math.Round(temperature).ToString();
         MinimumTemperature = Math.Round(minimumTemperature).ToString();
         MaximumTemperature =  Math.Round(maximumTemperature).ToString();
-        Sunrise = $"{DateTimeOffset.FromUnixTimeSeconds(sunrise).DateTime.ToShortTimeString()}";
-        Sunset = $"{DateTimeOffset.FromUnixTimeSeconds(sunset).DateTime.ToShortTimeString()}";
+        Sunrise = sunrise;
+        Sunset = sunset;
     }
     
     public string LocationName { get; }
-    public string Sunrise { get; }
-    public string Sunset { get; }
+    public long Sunrise { get; }
+    public long Sunset { get; }
     public string Icon { get; }
     public string Summary { get; }
     public string Description { get; }

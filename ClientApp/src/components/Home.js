@@ -1,21 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import './Home.css';
-
-const getWeather = async(lat, lon) => {
-    const response = await fetch(`weather?Latitude=${lat}&Longitude=${lon}`);
-    if (response.ok) {
-        return await response.json();
-    } else {
-        console.log(`There is a problem`)
-        return {}
-    }
-}
-
-const IsEmpty = (obj) => {
-    return obj
-        && Object.keys(obj).length === 0
-        && Object.getPrototypeOf(obj) === Object.prototype;
-}
+import getWeather from "../api/getWeather";
+import isEmpty from "../utils/isEmpty";
+import convertEpochTimestamp from "../utils/convertEpochTimestamp";
 
 const Home = () => {
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -23,42 +10,56 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
     const [weather, setWeather] = useState({});
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
-
+    
+    
     const callback = async (lat, lon) => {
         const response = await getWeather(lat, lon)
-        if(!IsEmpty(response))
+        if(!isEmpty(response))
         {
             setWeather(response)
             setLoading(false)
         }
+
     }
     
     useEffect(() => {
-        if(IsEmpty(weather))
-        {
-            navigator.geolocation.getCurrentPosition(
-                async (position) => await callback(position.coords.latitude, position.coords.longitude),
-                async () => await callback(51.509865, -0.118092),
-            );
-        }
-        const interval = setInterval(() => setCurrentDateTime(new Date()), 1000);
+        navigator.geolocation.getCurrentPosition(
+            async (position) => await callback(position.coords.latitude, position.coords.longitude),
+            async () => await callback(51.509865, -0.118092),
+        );
+        const interval = setInterval(() => {
+                setCurrentDateTime(new Date())
+            }
+            , 1000);
         return () => {
             clearInterval(interval);
         };
-    }, [weather]);
+    }, []);
     
     if(loading)
     {
-        return <h1>Loading ... </h1>
+        return (
+        <div className={"loading"}>
+            <img alt={"loading gif"} src={"/images/default/loading.gif"}/>
+        </div>
+        )
     }
     
+    const calculateTimeOfDay = (sunrise, sunset, time) => {
+        if(time > sunrise && time < sunset)
+        {
+            return "night"
+        }
+        return "day"
+    }
+    
+    const timeOfDay = calculateTimeOfDay(convertEpochTimestamp(weather.sunrise), convertEpochTimestamp(weather.sunset)) ?? "day"
     return (
-        <div className={"weather"}>
+        <div className={"weather"} style={{ backgroundImage: `url("/images/${timeOfDay}/${weather.summary.toLowerCase()}.jpeg")` }}>
             <h1 className={"weather-header"}>Weather in {weather.locationName}</h1>
             <h3 className={"weather-sub-header"}>{`${days[currentDateTime.getDay()]} - ${currentDateTime.toLocaleString()}`}</h3>
             <div className={"weather-details"}>
-                <img alt="weather-icon" src={`https://openweathermap.org/img/wn/${weather.icon ?? '04d'}@2x.png`}/>
-                <span>{weather.temperature} &deg;C</span>
+                <span>{weather.temperature} &deg;C - {weather.summary}</span>
             </div>
         </div>
     );

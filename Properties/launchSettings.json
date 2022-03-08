@@ -14,7 +14,8 @@
       "applicationUrl": "https://localhost:7102;http://localhost:5282",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
+        "WeatherApp__AppId": "a7dc3bd6bd6a013c1c6506111367ad4e"
       }
     },
     "IIS Express": {
