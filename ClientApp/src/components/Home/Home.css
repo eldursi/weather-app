@@ -34,6 +34,12 @@
     font-size: 3rem;
 }
 
+@media only screen and (max-width: 540px) {
+    .weather-header {
+        font-size: 2.5rem;
+    }
+}
+
 .weather-sub-header {
     font-size: 1.5rem;
 }
